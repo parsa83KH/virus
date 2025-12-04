@@ -45,6 +45,24 @@ virus/
 
 ## 🌐 مشاهده آنلاین
 
-پروژه در آدرس زیر در دسترس است:
+### GitHub Pages
+پروژه به صورت آنلاین در آدرس زیر در دسترس است:
+**https://parsa83KH.github.io/virus**
+
+### Repository
+کد منبع پروژه:
 https://github.com/parsa83KH/virus
+
+## 📖 راهنمای فعال‌سازی GitHub Pages
+
+1. به ریپازیتوری خود در GitHub بروید
+2. روی **Settings** کلیک کنید
+3. در منوی سمت چپ، **Pages** را انتخاب کنید
+4. در بخش **Source**:
+   - **Branch** را روی `main` تنظیم کنید
+   - **Folder** را روی `/ (root)` بگذارید
+5. روی **Save** کلیک کنید
+6. چند دقیقه صبر کنید تا سایت آماده شود
+7. لینک سایت شما: `https://parsa83KH.github.io/virus`
+
 
