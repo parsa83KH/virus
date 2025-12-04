@@ -3609,54 +3609,83 @@ const RNA_BASES = ['A', 'U', 'G', 'C'];
 
 // Try to get API key from window object (set by config.js)
 // If config.js loaded before this script, window.GEMINI_API_KEY will be available
-let GEMINI_API_KEY;
-try {
-    // Check if config.js has set it on window
-    if (typeof window !== 'undefined' && window.GEMINI_API_KEY) {
-        GEMINI_API_KEY = window.GEMINI_API_KEY;
+// Note: We don't redeclare GEMINI_API_KEY here to avoid "already declared" error
+// Instead, we use a function to get it from window object
+function getGeminiApiKey() {
+    try {
+        if (typeof window !== 'undefined' && window.GEMINI_API_KEY) {
+            return window.GEMINI_API_KEY;
+        }
+    } catch (e) {
+        console.error('❌ Error accessing window.GEMINI_API_KEY:', e);
     }
-} catch (e) {
-    console.warn('Could not access window.GEMINI_API_KEY:', e);
+    return null;
 }
 
-// Validate API key
-if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
+// Get API key - use window object directly to avoid redeclaration error
+// We'll access it via window.GEMINI_API_KEY or use the function when needed
+const apiKey = getGeminiApiKey();
+
+// Log status
+if (apiKey && apiKey !== 'YOUR_API_KEY_HERE') {
+    console.log('✅ API key loaded from config.js');
+} else if (typeof window !== 'undefined' && window.CONFIG_LOADED) {
+    console.warn('⚠️ API key not found or not configured in config.js');
+} else {
+    console.error('❌ config.js may not have loaded. Check browser console for errors.');
+}
+
+// Validate API key - use function to get it
+const currentApiKey = getGeminiApiKey();
+if (!currentApiKey || currentApiKey === 'YOUR_API_KEY_HERE') {
     console.error('❌ GEMINI_API_KEY is not configured!');
     console.error('📝 Please create a config.js file based on config.example.js');
     console.error('🔑 Get your API key from: https://aistudio.google.com/app/apikey');
     console.error('⚠️  The application will not work without a valid API key.');
     
-    // Show user-friendly error message
+    // Show user-friendly error message (only after DOM is ready)
     if (typeof document !== 'undefined') {
-        const errorDiv = document.createElement('div');
-        errorDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 0, 0, 0.9);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            z-index: 10000;
-            font-family: 'Vazirmatn', sans-serif;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-        `;
-        errorDiv.innerHTML = `
-            <h3 style="margin: 0 0 10px 0;">⚠️ API Key Missing</h3>
-            <p style="margin: 0 0 10px 0;">Please create a <code>config.js</code> file with your Gemini API key.</p>
-            <p style="margin: 0; font-size: 0.9em;">Copy <code>config.example.js</code> to <code>config.js</code> and add your key.</p>
-        `;
-        document.body.appendChild(errorDiv);
-        
-        // Auto-remove after 10 seconds
-        setTimeout(() => {
-            if (errorDiv.parentNode) {
-                errorDiv.parentNode.removeChild(errorDiv);
+        const showError = () => {
+            if (document.body) {
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(255, 0, 0, 0.9);
+                    color: white;
+                    padding: 20px 30px;
+                    border-radius: 10px;
+                    z-index: 10000;
+                    font-family: 'Vazirmatn', sans-serif;
+                    text-align: center;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                    max-width: 500px;
+                `;
+                errorDiv.innerHTML = `
+                    <h3 style="margin: 0 0 10px 0;">⚠️ API Key Missing</h3>
+                    <p style="margin: 0 0 10px 0;">Please create a <code>config.js</code> file with your Gemini API key.</p>
+                    <p style="margin: 0; font-size: 0.9em;">Copy <code>config.example.js</code> to <code>config.js</code> and add your key.</p>
+                `;
+                document.body.appendChild(errorDiv);
+                
+                // Auto-remove after 10 seconds
+                setTimeout(() => {
+                    if (errorDiv.parentNode) {
+                        errorDiv.parentNode.removeChild(errorDiv);
+                    }
+                }, 10000);
+            } else {
+                // Wait for DOM to be ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', showError);
+                } else {
+                    setTimeout(showError, 100);
+                }
             }
-        }, 10000);
+        };
+        showError();
     }
 }
 
@@ -3665,17 +3694,23 @@ const GEMINI_MODEL = 'gemini-2.5-flash';
 
 // Create API URLs dynamically to use the API key from config
 function getGeminiApiUrl() {
-    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
-        throw new Error('GEMINI_API_KEY is not configured. Please create config.js file.');
+    const apiKey = getGeminiApiKey();
+    if (!apiKey || apiKey === 'YOUR_API_KEY_HERE' || (typeof apiKey === 'string' && apiKey.trim() === '')) {
+        const errorMsg = 'GEMINI_API_KEY is not configured. Please create config.js file with your API key.';
+        console.error(errorMsg);
+        throw new Error(errorMsg);
     }
-    return `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+    return `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
 }
 
 function getGeminiListModelsUrl() {
-    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
-        throw new Error('GEMINI_API_KEY is not configured. Please create config.js file.');
+    const apiKey = getGeminiApiKey();
+    if (!apiKey || apiKey === 'YOUR_API_KEY_HERE' || (typeof apiKey === 'string' && apiKey.trim() === '')) {
+        const errorMsg = 'GEMINI_API_KEY is not configured. Please create config.js file with your API key.';
+        console.error(errorMsg);
+        throw new Error(errorMsg);
     }
-    return `https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`;
+    return `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
 }
 
 // Function to list available models
@@ -3700,8 +3735,9 @@ async function listAvailableModels() {
 async function testGeminiAPI() {
     try {
         console.log('Testing Gemini API...');
-        if (GEMINI_API_KEY) {
-            console.log('API Key:', GEMINI_API_KEY.substring(0, 10) + '...');
+        const apiKey = getGeminiApiKey();
+        if (apiKey) {
+            console.log('API Key:', apiKey.substring(0, 10) + '...');
         }
         console.log('Model:', GEMINI_MODEL);
         try {
