@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هوش مصنوعی در مدل‌سازی رفتار مولکولی ویروس‌ها</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Vazirmatn:wght@300;400;500;600;700&family=Estedad:wght@300;400;500;600;700&family=Shabnam:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body>
+    <div id="three-background"></div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section">
+        <h1>هوش مصنوعی در مدل‌سازی رفتار مولکولی ویروس‌ها</h1>
+        <h2>به نظر شما هوش مصنوعی در ویروس شناسی چه کاربردی می تونه داشته باشه؟</h2>
+        <div class="presenters">ارائه‌دهندگان: پارسا و ملیکا</div>
+    </section>
+
+
+    <!-- Scientific Content Section -->
+    <section id="scientific-content" class="section">
+        <div class="content-container">
+            <!-- Virus Intelligence Section -->
+            <div class="content-section" id="virus-intelligence">
+                <h2 class="section-title">مقدمه</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            امروز می‌خوایم درباره‌ی اینکه چطوری <span class="keyword ai">هوش مصنوعی</span> و <span class="keyword tech">مدل‌های یادگیری ماشین</span> می‌تونن از روی <span class="keyword">داده‌های ژنومی</span>، رفتار ویروس‌ها رو پیش‌بینی کنن صحبت کنیم.
+                        </p>
+                        <p class="scientific-text">
+                            ویروس‌ها از نظر تعریف، یه پوشش ساده‌ن از جنس <span class="keyword">پروتئین</span>، دور یه <span class="keyword">محتوای ژنتیکی</span>. بعضیا می‌گن موجودات نیمه‌زنده‌ان، بعضیا هم می‌گن اصلاً زنده نیستن — ولی بحث ما سر این نیست.
+                        </p>
+                        <p class="scientific-text">
+                            نکته‌ی جالب اینه که همین موجوداتِ به ظاهر ساده، رفتارهایی از خودشون نشون می‌دن که حسابی باهوش به‌نظر میان؛ مثل <span class="keyword">تطبیق سریع</span>، <span class="keyword">جهش هدفمند</span> یا <span class="keyword">فرار از سیستم ایمنی</span>.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="virus-structure" class="visual-diagram">
+                            <canvas id="virus-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Genetic Language Section -->
+            <div class="content-section" id="genetic-language">
+                <h2 class="section-title">هوش ویروس</h2>
+                <div class="content-grid">
+                    <div class="visual-content">
+                        <div id="genetic-code" class="visual-diagram">
+                            <canvas id="virus-intelligence-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            سؤال کلیدی اینجاست: <span class="keyword">منشأ این هوش کجاست؟</span>
+                        </p>
+                        <p class="scientific-text">
+                            پاسخ در <span class="keyword">محتوای ژنتیکی</span> ویروس نهفته است. ویروس‌ها با <span class="keyword">زبانی</span> صحبت می‌کنند که کد آن در <span class="keyword">ژنوم</span>شان قرار دارد.
+                        </p>
+                        <p class="scientific-text">
+                            اگر بتوانیم این زبان را درک کنیم، به <span class="keyword">رفتار مولکولی</span> ویروس دسترسی پیدا کرده‌ایم.
+                        </p>
+                        <p class="scientific-text">
+                            اینجاست که <span class="keyword ai">هوش مصنوعی</span> وارد صحنه می‌شود.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Big Data Section -->
+            <div class="content-section" id="big-data">
+                <h2 class="section-title">زبان ژنتیک</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            با ظهور فناوری <span class="keyword tech">Next Generation Sequencing</span> یا <span class="keyword tech">NGS</span>، دسترسی به حجم عظیمی از <span class="keyword">داده‌های ژنومی</span> ممکن شد.
+                        </p>
+                        <p class="scientific-text">
+                            این داده‌ها گاهی از یک نوع ویروس، چندین <span class="keyword">ترابایت</span> اطلاعات تولید می‌کنند.
+                        </p>
+                        <p class="scientific-text">
+                            اما این داده‌ها در حالت <span class="keyword">خام و پر از نویز</span>، برای <span class="keyword">تحلیل رفتاری</span> قابل استفاده نیستند.
+                        </p>
+                        <p class="scientific-text">
+                            حجم این داده‌ها به حدی است که حتی هزاران متخصص نمی‌توانند <span class="keyword">الگوها</span> را به صورت دستی استخراج کنند.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="data-visualization" class="visual-diagram">
+                            <canvas id="ngs-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Models Section -->
+            <div class="content-section" id="ai-models">
+                <h2 class="section-title">مدل‌های هوش مصنوعی برای تحلیل ژنومی</h2>
+                <div class="content-grid">
+                    <div class="visual-content">
+                        <div id="neural-models" class="visual-diagram">
+                            <canvas id="lstm-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            در اینجا <span class="keyword ai">هوش مصنوعی</span> وارد صحنه شد — به ویژه <span class="keyword tech">شبکه‌های عصبی</span> که برای <span class="keyword">پردازش توالی‌ها</span> طراحی شده‌اند.
+                        </p>
+                        <p class="scientific-text">
+                            یکی از اولین مدل‌هایی که در این زمینه استفاده شد، <span class="keyword tech">LSTM</span> یا <span class="keyword tech">Long Short‑Term Memory</span> بود.
+                        </p>
+                        <p class="scientific-text">
+                            این مدل مانند یک <span class="keyword">حافظه‌ی بازگشتی</span> عمل می‌کند که می‌تواند <span class="keyword">الگوهای بلندمدت</span> را از <span class="keyword">توالی‌های زیستی</span> استخراج کند.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LSTM Section -->
+            <div class="content-section" id="lstm-analysis">
+                <h2 class="section-title">LSTM در ویروس شناسی</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            تصور کنید <span class="keyword">RNA</span> یک جمله است؛ ترتیب حروف آن، یعنی <span class="keyword">نوکلئوتیدها</span>، معنی جمله را می‌سازند.
+                        </p>
+                        <p class="scientific-text">
+                            اگر یکی از این حروف تغییر کند، معنا تغییر می‌کند — مانند تغییر "CAT" به "CUT" در انگلیسی.
+                        </p>
+                        <p class="scientific-text">
+                            مدل <span class="keyword tech">LSTM</span> دقیقاً همین کار را یاد می‌گیرد: چگونه <span class="keyword">الگوهای جمله‌ی زیستی</span> را بخواند و پیش‌بینی کند که تغییر یک حرف چه تأثیری بر <span class="keyword">رفتار مولکولی</span> ویروس می‌گذارد؛ مثلاً آیا باعث تقویت اتصال به <span class="keyword">سلول میزبان</span> می‌شود یا <span class="keyword">پایداری</span> آن را کاهش می‌دهد.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="lstm-demo" class="visual-diagram">
+                            <canvas id="lstm-section-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transformer Section -->
+            <div class="content-section" id="transformer-models">
+                <h2 class="section-title">ترنسفورمرها، نسل بعدی</h2>
+                <div class="content-grid">
+                    <div class="visual-content">
+                        <div id="transformer-demo" class="visual-diagram">
+                            <canvas id="transformer-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            پس از آن، <span class="keyword tech">مدل‌های Transformer</span> ظهور کردند که بسیار پیشرفته‌تر هستند.
+                        </p>
+                        <p class="scientific-text">
+                            <span class="keyword tech">Transformer</span>‌ها برخلاف <span class="keyword tech">LSTM</span> کل <span class="keyword">توالی ژنوم</span> را هم‌زمان می‌بینند و اطلاعات را با <span class="keyword tech">مکانیزم Self‑Attention</span> تحلیل می‌کنند — یعنی خودشان تصمیم می‌گیرند کدام بخش از توالی مهم‌تر است.
+                        </p>
+                        <p class="scientific-text">
+                            نتیجه؟ درک <span class="keyword">روابط دور و پیچیده</span>‌ای که تا پیش از این قابل کشف نبود.
+                        </p>
+                        <p class="scientific-text">
+                            برای مثال، یک تغییر در ابتدای <span class="keyword">ژنوم</span> می‌تواند با تغییری در انتهای <span class="keyword">RNA</span> ارتباط داشته باشد و مدل می‌فهمد که آن <span class="keyword">جهش کوچک</span>، ممکن است <span class="keyword">فرم سه‌بعدی پروتئین</span> را به‌طور کامل تغییر دهد.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Section -->
+            <div class="content-section" id="behavior-prediction">
+                <h2 class="section-title">پیش‌بینی رفتار زیستی واقعی</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            این نقطه، جایی است که مدل‌ها دیگر فقط <span class="keyword">توالی</span> نمی‌خوانند؛ بلکه <span class="keyword ai">رفتار زیستی پیش‌بینی می‌کنند — رفتار واقعی ویروس</span>.
+                        </p>
+                        <p class="scientific-text">
+                            مدل می‌تواند پیش‌بینی کند که یک <span class="keyword">جهش کوچک</span> چگونه بر <span class="keyword">قابلیت عفونت‌زایی</span>، <span class="keyword">مقاومت دارویی</span> یا <span class="keyword">سرعت تکثیر</span> ویروس تأثیر می‌گذارد.
+                        </p>
+                        <p class="scientific-text">
+                            این همان چیزی است که ما را قادر می‌سازد تا قبل از انجام آزمایش‌های پرهزینه و زمان‌بر، <span class="keyword">رفتار ویروس</span> را پیش‌بینی کنیم.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="prediction-demo" class="visual-diagram">
+                            <canvas id="prediction-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Mutation Prediction Model Section -->
+    <section id="ai-mutation-predictor" class="section">
+        <div class="content-container">
+            <h2 class="section-title">مدل پیش‌بینی جهش ویروس</h2>
+            
+            <div class="mutation-predictor-container">
+                <!-- Sequence Display -->
+                <div class="sequence-section">
+                    <h3>توالی RNA ویروس</h3>
+                    
+                    <!-- Nucleotide View -->
+                    <div class="sequence-view">
+                        <h4>نمایش نوکلئوتیدی</h4>
+                        <div class="sequence-display" id="sequence-display">
+                            <!-- RNA sequence will be generated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="sequence-controls">
+                        <button id="generate-sequence" class="control-btn">تولید توالی جدید</button>
+                        <button id="undo-mutation" class="control-btn">بازگردانی</button>
+                        <span class="sequence-info">طول: <span id="sequence-length">0</span> نوکلئوتید</span>
+                    </div>
+                </div>
+
+                <!-- Mutation Tools -->
+                <div class="mutation-tools">
+                    <h3>ابزارهای تغییر توالی</h3>
+                    
+                    <!-- Mutation Wizard -->
+                    <div class="mutation-wizard" id="mutation-wizard">
+                        <!-- Step 1: Select Mutation Type -->
+                        <div class="wizard-step active" id="step-1">
+                            <h4>مرحله 1: انتخاب نوع جهش</h4>
+                            <div class="mutation-type-selection">
+                                <button class="mutation-type-btn" data-type="substitution">جایگزینی</button>
+                                <button class="mutation-type-btn" data-type="insertion">درج</button>
+                                <button class="mutation-type-btn" data-type="deletion">حذف</button>
+                                <button class="mutation-type-btn" data-type="inversion">وارونگی</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Mutation Details -->
+                        <div class="wizard-step" id="step-2">
+                            <h4>مرحله 2: جزئیات جهش</h4>
+                            <div class="mutation-details" id="mutation-details">
+                                <!-- Dynamic content based on mutation type -->
+                            </div>
+                            <div class="wizard-navigation">
+                                <button id="prev-step-2" class="prev-btn">مرحله قبل</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Confirmation -->
+                        <div class="wizard-step" id="step-3">
+                            <h4>مرحله 3: تایید و اعمال</h4>
+                            <div class="mutation-summary" id="mutation-summary">
+                                <!-- Summary of selected mutation -->
+                            </div>
+                            <div class="wizard-actions">
+                                <button id="prev-step-3" class="prev-btn">مرحله قبل</button>
+                                <button id="apply-mutation" class="apply-btn">اعمال تغییر</button>
+                                <button id="cancel-mutation" class="cancel-btn">لغو</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="ai-analysis-section">
+                    <h3>تحلیل هوش مصنوعی</h3>
+                    <div class="ai-thinking" id="ai-thinking">
+                        <div class="thinking-logs" id="thinking-logs">
+                            <!-- AI thinking logs will appear here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-results" id="analysis-results">
+                        <!-- Analysis results will appear here -->
+                    </div>
+                </div>
+
+
+                <!-- Prediction Charts -->
+                <div class="prediction-charts">
+                    <h3>نمودارهای پیش‌بینی</h3>
+                    <div id="charts-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Immune Escape Section -->
+    <section id="immune-escape-section" class="section">
+        <div class="content-container">
+            <div class="content-section" id="immune-escape">
+                <h2 class="section-title">فرار از سیستم ایمنی</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            در یک <span class="keyword">بازتولید ساده</span>، ویروس می‌تواند تغییر بسیار ظریفی در <span class="keyword">پوشش قندی</span> خود ایجاد کند که به‌عنوان یک <span class="keyword">سپر مولکولی</span> عمل می‌کند.
+                        </p>
+                        <p class="scientific-text">
+                            این <span class="keyword">پوشش گلیکوزیله</span> جدید، <span class="keyword">نواحی آنتی‌ژنی</span> را از دید <span class="keyword">آنتی‌بادی‌ها</span> پنهان می‌کند و مانع از <span class="keyword">تشخیص و اتصال</span> آن‌ها به <span class="keyword">اپیتوپ‌های فعال</span> می‌شود.
+                        </p>
+                        <p class="scientific-text">
+                            نتیجه این است که همان ویروسی که بدن بارها با موفقیت <span class="keyword">سرکوب</span> کرده است، اکنون می‌تواند بدون <span class="keyword">مقاومت ایمنی</span> به <span class="keyword">تکثیر</span> خود ادامه دهد.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="immune-escape-animation" class="visual-diagram">
+                            <canvas id="immune-escape-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Immune Memory Rewrite Section -->
+    <section id="immune-memory-section" class="section">
+        <div class="content-container">
+            <div class="content-section" id="immune-memory">
+                <h2 class="section-title">چالش سلول‌های حافظه</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            هنگامی که ویروس <span class="keyword">پوشش گلیکوزیله جدید</span> را به‌دست می‌آورد، پدیده‌ای رخ می‌دهد که به‌عنوان <span class="keyword">بازنویسی ایمنی شناخته شده</span> شناخته می‌شود.
+                        </p>
+                        <p class="scientific-text">
+                            <span class="keyword">سلول‌های حافظه ایمنی</span> که برای شناسایی <span class="keyword">اپیتوپ‌های آنتی‌ژنی</span> ویروس قبلی آموزش دیده‌اند، اکنون در برابر ویروسی با <span class="keyword">چهره مولکولی تغییر‌یافته</span> قرار می‌گیرند و قادر به <span class="keyword">تشخیص مؤثر</span> نیستند.
+                        </p>
+                        <p class="scientific-text">
+                            از نظر بالینی، در این لحظه <span class="keyword">ایمنی جمعی</span> کارایی خود را از دست می‌دهد؛ حتی در جمعیت‌های <span class="keyword">واکسینه شده</span>، <span class="keyword">نرخ ابتلا</span> مجدداً افزایش می‌یابد زیرا <span class="keyword">پاسخ حافظه‌ای</span> دیگر کافی نیست.
+                        </p>
+                        <p class="scientific-text">
+                            این پدیده پیامد مستقیمی بر <span class="keyword">طراحی واکسن‌ها</span> و <span class="keyword">نظام کنترل ویروس</span> دارد. <span class="keyword">واکسن‌های مبتنی بر آنتی‌ژن قبلی</span> باید بازطراحی شوند تا <span class="keyword">سطح جدید گلیکوزیلاسیون</span> را نیز دربرگیرند.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="immune-memory-animation" class="visual-diagram">
+                            <canvas id="immune-memory-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Vaccine Design Section -->
+    <section id="ai-vaccine-section" class="section">
+        <div class="content-container">
+            <div class="content-section" id="ai-vaccine">
+                <h2 class="section-title">هوش مصنوعی در طراحی واکسن</h2>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="scientific-text">
+                            <span class="keyword">پوشش قندی</span> یک مشکل واضح برای <span class="keyword">طراحی واکسن</span> است، زیرا عملاً <span class="keyword">اپیتوپ</span> را پنهان می‌کند.
+                        </p>
+                        <p class="scientific-text">
+                            هدف این پروژه این است که اجازه دهیم <span class="keyword">مدل هوش مصنوعی</span> <span class="keyword">ساختار پنهان شده</span> را بازسازی کند.
+                        </p>
+                        <p class="scientific-text">
+                            این مدل با بررسی <span class="keyword">صدها حالت احتمالی گلیکوزیلاسیون</span>، <span class="keyword">موقعیت قند</span> و <span class="keyword">ساختار واقعی اپیتوپ</span> را بدون آن <span class="keyword">ماسک قندی</span> بازسازی می‌کند.
+                        </p>
+                        <p class="scientific-text">
+                            این مدل به ما کمک می‌کند که کدام نسخه از <span class="keyword">آنتی‌ژن</span> بیشترین احتمال <span class="keyword">تحریک حافظه ایمنی</span> را دارد؛ یعنی <span class="keyword">واکسنی</span> ساخته می‌شود که دقیقاً برای این <span class="keyword">جهش خاص</span> <span class="keyword">شخصی‌سازی شده</span> است. این روش <span class="keyword">واکسن‌سازی کلاسیک</span> نیست و <span class="keyword">هوشمند</span> است.
+                        </p>
+                    </div>
+                    <div class="visual-content">
+                        <div id="ai-vaccine-animation" class="visual-diagram">
+                            <canvas id="ai-vaccine-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pandemic Simulation Section -->
+    <section id="pandemic-simulation" class="section">
+        <div class="content-container">
+            <h2 class="section-title">شبیه‌سازی پاندمیک ویروس</h2>
+            
+            <div class="pandemic-simulation-wrapper">
+                <div class="simulation-main-content">
+                    <div class="simulation-canvas-wrapper">
+                        <div class="simulation-controls-top">
+                            <button class="simulation-btn-start" onclick="startPandemicSimulation()" id="startSimBtn">▶ شروع شبیه‌سازی</button>
+                            <button class="simulation-btn-reset" onclick="resetPandemicSimulation()">↻ ریست</button>
+                            <button class="simulation-btn-vaccine" onclick="startVaccineDevelopment()" id="vaccineBtn" style="display: none;">💉 طراحی واکسن</button>
+                        </div>
+                        <canvas id="pandemic-simulation-canvas"></canvas>
+                        <div class="simulation-guide-line">
+                            <div class="guide-item">
+                                <span class="guide-color color-healthy"></span>
+                                <span>سالم</span>
+                            </div>
+                            <div class="guide-item">
+                                <span class="guide-color color-infected"></span>
+                                <span>آلوده</span>
+                            </div>
+                            <div class="guide-item">
+                                <span class="guide-color color-sick"></span>
+                                <span>بیمار</span>
+                            </div>
+                            <div class="guide-item">
+                                <span class="guide-color color-recovered"></span>
+                                <span>بهبود</span>
+                            </div>
+                            <div class="guide-item">
+                                <span class="guide-color color-vaccinated"></span>
+                                <span>واکسینه</span>
+                            </div>
+                            <div class="guide-item">
+                                <span class="guide-color color-dead"></span>
+                                <span>فوت</span>
+                            </div>
+                        </div>
+                        <div class="simulation-params-horizontal" id="simulationParamsDisplay">
+                        </div>
+                    </div>
+
+                    <div class="simulation-sidebar">
+                        <div class="simulation-logs-panel">
+                            <h3>لاگ‌های زنده</h3>
+                            <div class="simulation-live-logs" id="simulationLiveLogs">
+                                <!-- Live logs will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="simulation-chart-mini">
+                            <h3>شبیه‌سازی اولیه</h3>
+                            <div class="simulation-chart-mini-wrapper">
+                                <canvas id="pandemic-chart-canvas-mini"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="simulation-chart-mini">
+                            <h3>شبیه‌سازی ثانویه</h3>
+                            <div class="simulation-chart-mini-wrapper">
+                                <canvas id="pandemic-chart-canvas-mini-secondary"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="simulation-chart-container" style="display: none;">
+                    <h3>تحلیل زمانی پاندمی</h3>
+                    <canvas id="pandemic-chart-canvas"></canvas>
+                </div>
+
+                <!-- AI Report Section -->
+                <div class="simulation-results-container" id="simulationResultsContainer" style="display: none;">
+                    <h3>گزارش نهایی هوش مصنوعی</h3>
+                    <div class="simulation-results-content" id="simulationResultsContent"></div>
+                </div>
+                
+                <!-- AI Comparison Report Section -->
+                <div class="simulation-comparison-container" id="simulationComparisonContainer" style="display: none;">
+                    <h3>تحلیل مقایسه‌ای هوش مصنوعی: قبل و بعد از واکسن</h3>
+                    <div class="comparison-loading" id="comparisonLoading" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p>در حال تولید گزارش توسط هوش مصنوعی...</p>
+                    </div>
+                    <div class="simulation-comparison-content" id="simulationComparisonContent"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
