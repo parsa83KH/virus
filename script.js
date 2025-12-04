@@ -3604,16 +3604,84 @@ const RNA_BASES = ['A', 'U', 'G', 'C'];
 
 // AI thinking logs database
 // Gemini API Configuration
-const GEMINI_API_KEY = 'AIzaSyAUaH3X-P6lDJ0M3J7mPB4ySe9Hb0YgNsA';
+// API key is loaded from config.js (which is gitignored)
+// If config.js is missing, check the console for instructions
+
+// Try to get API key from window object (set by config.js)
+// If config.js loaded before this script, window.GEMINI_API_KEY will be available
+let GEMINI_API_KEY;
+try {
+    // Check if config.js has set it on window
+    if (typeof window !== 'undefined' && window.GEMINI_API_KEY) {
+        GEMINI_API_KEY = window.GEMINI_API_KEY;
+    }
+} catch (e) {
+    console.warn('Could not access window.GEMINI_API_KEY:', e);
+}
+
+// Validate API key
+if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
+    console.error('❌ GEMINI_API_KEY is not configured!');
+    console.error('📝 Please create a config.js file based on config.example.js');
+    console.error('🔑 Get your API key from: https://aistudio.google.com/app/apikey');
+    console.error('⚠️  The application will not work without a valid API key.');
+    
+    // Show user-friendly error message
+    if (typeof document !== 'undefined') {
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Vazirmatn', sans-serif;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+        `;
+        errorDiv.innerHTML = `
+            <h3 style="margin: 0 0 10px 0;">⚠️ API Key Missing</h3>
+            <p style="margin: 0 0 10px 0;">Please create a <code>config.js</code> file with your Gemini API key.</p>
+            <p style="margin: 0; font-size: 0.9em;">Copy <code>config.example.js</code> to <code>config.js</code> and add your key.</p>
+        `;
+        document.body.appendChild(errorDiv);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (errorDiv.parentNode) {
+                errorDiv.parentNode.removeChild(errorDiv);
+            }
+        }, 10000);
+    }
+}
+
 // Use gemini-2.5-flash which is available and fast
 const GEMINI_MODEL = 'gemini-2.5-flash';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-const GEMINI_LIST_MODELS_URL = `https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`;
+
+// Create API URLs dynamically to use the API key from config
+function getGeminiApiUrl() {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
+        throw new Error('GEMINI_API_KEY is not configured. Please create config.js file.');
+    }
+    return `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+}
+
+function getGeminiListModelsUrl() {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
+        throw new Error('GEMINI_API_KEY is not configured. Please create config.js file.');
+    }
+    return `https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`;
+}
 
 // Function to list available models
 async function listAvailableModels() {
     try {
-        const response = await fetch(GEMINI_LIST_MODELS_URL);
+        const response = await fetch(getGeminiListModelsUrl());
         const data = await response.json();
         console.log('Available Models:', data);
         if (data.models) {
@@ -3632,9 +3700,15 @@ async function listAvailableModels() {
 async function testGeminiAPI() {
     try {
         console.log('Testing Gemini API...');
-        console.log('API Key:', GEMINI_API_KEY.substring(0, 10) + '...');
+        if (GEMINI_API_KEY) {
+            console.log('API Key:', GEMINI_API_KEY.substring(0, 10) + '...');
+        }
         console.log('Model:', GEMINI_MODEL);
-        console.log('URL:', GEMINI_API_URL.substring(0, 80) + '...');
+        try {
+            console.log('URL:', getGeminiApiUrl().substring(0, 80) + '...');
+        } catch (e) {
+            console.log('URL: [API key not configured]');
+        }
         
         // First, try to list available models
         console.log('Checking available models...');
@@ -3645,7 +3719,7 @@ async function testGeminiAPI() {
         
         const testPrompt = 'Say "Hello, API is working" in one sentence.';
         
-        const response = await fetch(GEMINI_API_URL, {
+        const response = await fetch(getGeminiApiUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -3880,7 +3954,7 @@ IMPORTANT:
 - Make viral strain impacts VARIED (some increase, some decrease)
 - Create FICTIONAL but REALISTIC-SOUNDING drug names`;
 
-        const response = await fetch(GEMINI_API_URL, {
+        const response = await fetch(getGeminiApiUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -7710,7 +7784,7 @@ QUALITY REQUIREMENTS:
 End with "===REPORT_END==="`;
 
     try {
-        const response = await fetch(GEMINI_API_URL, {
+        const response = await fetch(getGeminiApiUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -7948,7 +8022,7 @@ QUALITY REQUIREMENTS:
 End with "===REPORT_END==="`;
 
     try {
-        const response = await fetch(GEMINI_API_URL, {
+        const response = await fetch(getGeminiApiUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,68 +1,81 @@
-# هوش مصنوعی در مدل‌سازی رفتار مولکولی ویروس‌ها
+# AI in Molecular Behavior Modeling of Viruses
 
-پروژه تعاملی و بصری برای نمایش کاربرد هوش مصنوعی در ویروس‌شناسی و طراحی واکسن
+A web-based interactive presentation about using Artificial Intelligence in virology and molecular behavior prediction.
 
-## 📋 ویژگی‌ها
+## Setup Instructions
 
-- **مدل‌سازی ویروس**: نمایش ساختار و رفتار مولکولی ویروس‌ها
-- **تحلیل ژنومی**: استفاده از مدل‌های LSTM و Transformer برای تحلیل داده‌های ژنومی
-- **پیش‌بینی جهش**: ابزار تعاملی برای پیش‌بینی تأثیر جهش‌ها بر رفتار ویروس
-- **طراحی واکسن هوشمند**: نمایش فرآیند بازسازی ساختار پنهان و طراحی واکسن شخصی‌سازی شده
-- **شبیه‌سازی پاندمیک**: شبیه‌سازی تعاملی گسترش ویروس و تأثیر واکسن
+### API Key Configuration
 
-## 🚀 استفاده
+This project uses Google's Gemini API for AI-powered analysis. To use the application, you need to configure your API key:
 
-فقط فایل `index.html` را در مرورگر باز کنید. تمام منابع به صورت محلی یا از CDN لود می‌شوند.
+1. **Get your API key:**
+   - Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+   - Create a new API key or use an existing one
 
-## 🛠️ تکنولوژی‌ها
+2. **Configure the API key:**
+   - Copy `config.example.js` to `config.js`
+   - Open `config.js` and replace `YOUR_API_KEY_HERE` with your actual API key
 
-- HTML5 Canvas
-- Three.js برای گرافیک سه‌بعدی
-- GSAP برای انیمیشن‌ها
-- Chart.js برای نمودارها
-- JavaScript (Vanilla)
+   ```javascript
+   const GEMINI_API_KEY = 'your-actual-api-key-here';
+   ```
 
-## 📁 ساختار پروژه
+3. **Important Security Notes:**
+   - `config.js` is already in `.gitignore` and will NOT be committed to version control
+   - Never share your API key publicly
+   - Never commit `config.js` to Git
+   - If your API key is exposed, revoke it immediately in Google AI Studio
 
-```
-virus/
-├── index.html          # صفحه اصلی
-├── script.js           # منطق و انیمیشن‌ها
-├── styles.css          # استایل‌ها
-└── README.md          # این فایل
-```
+### Running the Application
 
-## 👥 ارائه‌دهندگان
+1. Open `index.html` in a web browser
+2. The application will automatically load your API key from `config.js`
+3. If the API key is missing, you'll see an error message with instructions
 
-پارسا و ملیکا
+## Project Structure
 
-## 📝 توضیحات
+- `index.html` - Main HTML file
+- `script.js` - Application logic
+- `styles.css` - Styling
+- `config.js` - **Your API key (gitignored, not in repository)**
+- `config.example.js` - Template for API key configuration
+- `.gitignore` - Ensures config.js is never committed
 
-این پروژه به صورت تعاملی نشان می‌دهد که چگونه هوش مصنوعی می‌تواند:
-- از داده‌های ژنومی برای پیش‌بینی رفتار ویروس استفاده کند
-- ساختارهای پنهان شده توسط پوشش قندی را بازسازی کند
-- واکسن‌های شخصی‌سازی شده برای جهش‌های خاص طراحی کند
+## Features
 
-## 🌐 مشاهده آنلاین
+- Interactive virus mutation prediction
+- AI-powered molecular behavior analysis
+- Pandemic simulation
+- Vaccine design visualization
 
-### GitHub Pages
-پروژه به صورت آنلاین در آدرس زیر در دسترس است:
-**https://parsa83KH.github.io/virus**
+## Security Best Practices
 
-### Repository
-کد منبع پروژه:
-https://github.com/parsa83KH/virus
+✅ **DO:**
+- Keep `config.js` in `.gitignore`
+- Use environment variables for production
+- Rotate API keys regularly
+- Add API key restrictions in Google Cloud Console
 
-## 📖 راهنمای فعال‌سازی GitHub Pages
+❌ **DON'T:**
+- Commit `config.js` to version control
+- Share your API key publicly
+- Hardcode API keys in source files
+- Use the same API key for multiple projects
 
-1. به ریپازیتوری خود در GitHub بروید
-2. روی **Settings** کلیک کنید
-3. در منوی سمت چپ، **Pages** را انتخاب کنید
-4. در بخش **Source**:
-   - **Branch** را روی `main` تنظیم کنید
-   - **Folder** را روی `/ (root)` بگذارید
-5. روی **Save** کلیک کنید
-6. چند دقیقه صبر کنید تا سایت آماده شود
-7. لینک سایت شما: `https://parsa83KH.github.io/virus`
+## Troubleshooting
 
+**Error: "API Key Missing"**
+- Make sure `config.js` exists and contains a valid API key
+- Check that `config.js` is in the same directory as `index.html`
+- Verify the API key is correct in Google AI Studio
+
+**API Key Locked/Revoked**
+- If your API key was exposed, Google may lock it automatically
+- Create a new API key in Google AI Studio
+- Update `config.js` with the new key
+- Consider adding restrictions to your new key
+
+## License
+
+[Your License Here]
 

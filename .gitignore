@@ -1,35 +1,17 @@
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
+# API Configuration - Never commit this file!
+config.js
 
-# Editor files
+# Environment files
+.env
+.env.local
+
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# Logs
-*.log
-npm-debug.log*
-
-# Dependencies
-node_modules/
-
-# Build files
-dist/
-build/
-*.min.js
-*.min.css
-
-# Environment variables
-.env
-.env.local
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
+# OS files
+.DS_Store
+Thumbs.db
 
